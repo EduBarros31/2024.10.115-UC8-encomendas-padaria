@@ -11,7 +11,7 @@ class AutenticacaoController {
     
     static gerarTokenAcesso(dadosUsuario) {
         return jwt.sign(dadosUsuario, process.env.SECRET_KEY, {
-            expiresIn: tempo_refresh_token,
+            expiresIn: tempo_acess_token,
           });
     }
     static gerarRefreshToken(dadosUsuario) {
@@ -37,22 +37,74 @@ class AutenticacaoController {
               }
               const dadosUsuario = {
                 nome: usuario.nome,
+                email: usuario.email,
+                id: usuario.id,
                 papel: "usuario",
               };
+              const tokenAcesso = AutenticacaoController.gerarTokenAcesso(dadosUsuario)
+              const refreshToken = AutenticacaoController.gerarRefreshToken(dadosUsuario)
+              
+              res.cookie("refreshToken", refreshToken, {
+                httpOnly: false,
+                secure: process.env.NODE_ENV,
+                sameStrict: 'strict',
+                maxAge: 1 * 24
+            })
 
+            res.status(200); json({
+              tokenAcesso,
+              nome: usuario.nome,
+              id: usuario.id,
+              // Posso transformar em array com varios papeis e opções
+              papel: 'usuario'
+          })
 
         } catch (error) {
-            
+            res.status(500).json({ msg: 'Erro do servidor. Tente novamente mais tarde!' })
         }
     }
+   
+
+    static refreshToken(req, res){
+      const { refreshToken } = req.cookies
+      if(!refreshToken) {
+          return res.status(403).json({ msg: "Refresh token invalido!" })
+      }
+      jwt.verify(
+          refreshToken,
+          process.env.JWT_REFRESH_SECRET,
+          (erro, usuario) => {
+              if(erro){
+                  return res.status(403).json({ msg: 'Refresh token inválido!'})
+              }
+              const dadosUsuario = {
+                  nome: usuario.nome,
+                  papel: 'usuario'
+              }
+              const novoTokenAcesso = this.gerarRefreshToken(dadosUsuario)
+              res.status(200).json({ tokenAcesso: novoTokenAcesso })
+          }
+      )
+  }
 
 
 
 
+  static async logout(req, res){
+    try {
+        res.clearCookie('refreshToken', {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'development',
+            sameSite: 'strict'
+        })
+        res.status(200).json({msg: "Logout realizado com sucesso"})
+    } catch (error) {
+        res.status(500).json({msg: 'Erro do servidor. Tente novamente mais tarde!'})
+    }
+}
 
-
-
-
-
+   
 }
     
+
+module.exports = AutenticacaoController;
