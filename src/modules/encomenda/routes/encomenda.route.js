@@ -5,7 +5,7 @@ const router = express.Router()
 const EncomendaController  = require('../controllers/encomenda.controller')
 
 // rota publica de login
-router.post('/criar', EncomendaController.criarEncomenda);
+router.post('/cadastrar', EncomendaController.criarEncomenda);
 
 // rota para listar todas as encomendas
 router.get('/listar', EncomendaController.listarEncomendas);

@@ -44,6 +44,12 @@ const Encomenda = sequelize.define(
             defaultValue: 'pendente',
         },
     }
+    ,
+    {
+        tableName: 'encomendas',
+        createdAt: 'criado_em',
+        updatedAt: 'atualizado_em',
+    }
 );
 
 module.exports = Encomenda;
