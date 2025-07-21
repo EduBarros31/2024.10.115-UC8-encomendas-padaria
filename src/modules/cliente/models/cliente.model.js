@@ -4,29 +4,30 @@ const { sequelize } = require("../../../config/configDB")
 const Cliente = sequelize.define(
     'cliente',
      {
+     id: {
+         type: DataTypes.INTEGER,
+         primaryKey: true,
+        
+     },
         nome: {
             type: DataTypes.STRING,
             allowNull: false,
-          },
-        id: {
+        },
+        telefone: {
             type: DataTypes.STRING,
-            primaryKey: true,
+            allowNull: false,
             validate: {
                 is: {
-                     args: /^[A-Za-z]\d{4}$/,
-                    msg: "Só é possível inserir 1 letra maiuscula e 4 digitos númericos"
+                    args: /^\d{10,11}$/,
+                    msg: "O telefone deve conter 10 ou 11 dígitos numéricos."
                 }
             }
         },
-        telefone: {
-            type: DataTypes.NUMBER,
-            allowNull: false,
-        },
         email: {
             type: DataTypes.STRING,
-            allowNull: true,
+            allowNull: false,
             validate: {
-                isEmail: {msg: "Email inválido"},
+                isEmail: { msg: "Email inválido" },
             },
         },
         senha: {
@@ -34,20 +35,18 @@ const Cliente = sequelize.define(
             allowNull: false,
             validate: {
                 is: {
-                    args: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-                    msg: "A senha deve ter 6 numeros"
-            }
-        }
-     },
-       papel: {
+                    args: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{6,}$/,
+                    msg: 'A senha deve ter no mínimo 6 caracteres, com letra maiúscula, minúscula, número e caractere especial.'
+                },
+            },
+        },
     },
-},
     {
         tableName: "cliente",
         createdAt: "criado_em",
         updatedAt: "atualizado_em",
     }
-  
+
 );
 
 
@@ -77,4 +76,3 @@ module.exports = Cliente;
 
 
 
-)

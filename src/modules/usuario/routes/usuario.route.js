@@ -5,10 +5,10 @@ const AutenticacaoMiddleware = require('../../../middleware/autenticacao.middlew
 const router = express.Router();
 
 // Rota para criar um usuário
-router.post('/usuarios', UsuarioController.criarUsuario);
+router.post('/criarUsuario', UsuarioController.criarUsuario);
 
 router.get('/usuarios/perfil', AutenticacaoMiddleware.autenticarToken, UsuarioController.perfil);
 
-router.post('/usuarios/login', AutenticacaoMiddleware.autenticarToken, UsuarioController.login)
+
 
 module.exports = router;

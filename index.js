@@ -1,10 +1,11 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors')
-const { sequelize } = require('./gestaoEncomenda/src/config/configDB');
-const authRoute = require('./gestaoEncomenda/src/modules/autenticacao/routes/autenticacao.route')
-const usuarioRoute = require('./gestaoEncomenda/src/modules/usuario/routes/usuario.route')
-const encomendaRoute = require('./gestaoEncomenda/src/modules/encomenda/routes/encomenda.route');
+const { sequelize } = require('./src/config/configDB');
+const authRoute = require('./src/modules/autenticacao/routes/autenticacao.route')
+const usuarioRoute = require('./src/modules/usuario/routes/usuario.route')
+const encomendaRoute = require('./src/modules/encomenda/routes/encomenda.route');
+const ClienteRoute = require('./src/modules/cliente/routes/cliente.route');
 
 // Configuração do banco de dados
 dotenv.config(); // Carrega variáveis de ambiente do arquivo .env
@@ -18,11 +19,9 @@ credentials: true
 app.use(express.json()); // Middleware para analisar JSON
 
 app.use('/api', authRoute);
-
-app.use('/api/', usuarioRoute);
-
-app.use('/api/', encomendaRoute);
-
+app.use('/api/usuarios', usuarioRoute);
+app.use('/api/clientes', ClienteRoute);
+app.use('/api/encomendas', encomendaRoute);
 
 
 const PORTA = process.env.PORTA;
@@ -34,7 +33,7 @@ app.listen(PORTA, async () => {
         await sequelize.sync({ force: true, alter: true });
         console.log('Banco de dados sincronizado com sucesso.');
     } catch (error) {
-        console.error('Erro ao conectar ou sincronizar o banco de dados:', error);
+        console.error('Erro ao conectar ou sincronizar o banco de dados:', error.message);
     }
     console.log(`Servidor rodando na porta ${PORTA}`);
 });

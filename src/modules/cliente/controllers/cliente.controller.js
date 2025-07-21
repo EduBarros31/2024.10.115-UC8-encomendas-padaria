@@ -4,8 +4,8 @@ const bcrypt = require("bcryptjs")
 class ClienteController{
     static async cadastrar(req,res) {
         try {
-            const { nome, telefone, email, senha } = req.body
-            if(!nome || !telefone ||email ||senha) {
+            const { id, nome, telefone, email, senha } = req.body
+            if(!id || !nome || !telefone ||email ||senha) {
                 return res
           .status(400)()
           .json({ msg: "Todos os campos devem serem preenchidos!" });
@@ -53,7 +53,7 @@ class ClienteController{
         try {
             const { id } = req.cliente
             const Cliente = await Cliente.findOne({
-              where: {matricula},
+              where: {id},
               attributes: ['nome','email', 'telefone']
             });
             if (!Cliente) {

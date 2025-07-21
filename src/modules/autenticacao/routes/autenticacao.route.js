@@ -13,6 +13,6 @@ router.post('/login', AutenticacaoController.login);
 router.post('/logout', AutenticacaoController.logout);
 
 // rota usada pelo navegador para atualizar o token 
-router.post('/refress-token', AutenticacaoController.refreshToken);
+router.post('/refresh-token', AutenticacaoController.refreshToken);
 
 module.exports = router

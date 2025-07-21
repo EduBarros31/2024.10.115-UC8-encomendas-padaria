@@ -4,7 +4,8 @@ const dotenv = require("dotenv");
 dotenv.config();
 const Usuario = require("../../usuario/models/usuario.model");
 
-
+const tempo_acess_token = process.env.TEMPO_ACESS_TOKEN;     
+const tempo_refresh_token = process.env.TEMPO_REFRESH_TOKEN;
 
 
 class AutenticacaoController {
@@ -26,7 +27,7 @@ class AutenticacaoController {
                 return res.status(400).json({ msg: "É necessario informar email e senha para login" })
             }
             const usuario = await Usuario.findOne({
-                where: { id },
+                where: { email },
               });
               if (!usuario) {
                 return res.status(401).json({ msg: "Usuario não encontrado!" });
@@ -39,7 +40,7 @@ class AutenticacaoController {
                 nome: usuario.nome,
                 email: usuario.email,
                 id: usuario.id,
-                papel: "usuario",
+                papel: usuario.papel,
               };
               const tokenAcesso = AutenticacaoController.gerarTokenAcesso(dadosUsuario)
               const refreshToken = AutenticacaoController.gerarRefreshToken(dadosUsuario)
@@ -56,7 +57,7 @@ class AutenticacaoController {
               nome: usuario.nome,
               id: usuario.id,
               // Posso transformar em array com varios papeis e opções
-              papel: 'usuario'
+              papel: usuario.papel,
           })
 
         } catch (error) {
@@ -78,8 +79,10 @@ class AutenticacaoController {
                   return res.status(403).json({ msg: 'Refresh token inválido!'})
               }
               const dadosUsuario = {
+                  id: usuario.id,
                   nome: usuario.nome,
-                  papel: 'usuario'
+                  papel: usuario.papel,
+                  role: usuario.role,
               }
               const novoTokenAcesso = this.gerarRefreshToken(dadosUsuario)
               res.status(200).json({ tokenAcesso: novoTokenAcesso })

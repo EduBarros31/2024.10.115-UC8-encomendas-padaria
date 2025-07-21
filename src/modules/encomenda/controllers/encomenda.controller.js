@@ -1,4 +1,6 @@
-const EncomendaModel = require('../models/encomenda.model');
+const EncomendaModel = require('../../../modules/encomenda/models/encomenda.model');
+const UsuarioModel = require('../../../modules/usuario/models/usuario.model');
+const ClienteModel = require('../../../modules/cliente/models/cliente.model')
 
 
 class EncomendaController {
