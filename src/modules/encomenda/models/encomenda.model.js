@@ -19,7 +19,7 @@ const Encomenda = sequelize.define(
             type: DataTypes.STRING,
             allowNull: false,
         },
-        produto_id: {
+        produtoID: {
             type: DataTypes.INTEGER,
             primaryKey: true,
             validate: {
@@ -27,7 +27,7 @@ const Encomenda = sequelize.define(
             },
         
         },
-        cliente_id: {
+        clienteID: {
             type: DataTypes.INTEGER,
             allowNull: false,
             validate: {

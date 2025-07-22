@@ -5,10 +5,9 @@ class ClienteController{
     static async cadastrar(req,res) {
         try {
             const { id, nome, telefone, email, senha } = req.body
-            if(!id || !nome || !telefone ||email ||senha) {
+            if(!id || !nome || !telefone || !email || !senha) {
                 return res
-          .status(400)()
-          .json({ msg: "Todos os campos devem serem preenchidos!" });
+          .status(400).json({ msg: "Todos os campos devem serem preenchidos!" });
             }
         
       // criptografando a senha
@@ -51,12 +50,12 @@ class ClienteController{
 
     static async listarClientes(req,res) {
         try {
-            const { id } = req.cliente
-            const Cliente = await Cliente.findOne({
-              where: {id},
-              attributes: ['nome','email', 'telefone']
+    
+            const Clientes = await Cliente.findAll({
+              
+              attributes: ['id','nome','email', 'telefone']
             });
-            if (!Cliente) {
+            if (Clientes.length === 0) {
               return res.status(401).json({ msg: "Não existe Cliente cadastrado!" });
             }
             res.status(200).json(Cliente);

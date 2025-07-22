@@ -23,7 +23,7 @@ class AutenticacaoController {
     static async login(req, res){
         try {
             const { email, senha } = req.body;
-            if(!email, !senha) {
+            if(!email || !senha) {
                 return res.status(400).json({ msg: "É necessario informar email e senha para login" })
             }
             const usuario = await Usuario.findOne({
@@ -52,7 +52,7 @@ class AutenticacaoController {
                 maxAge: 1 * 24
             })
 
-            res.status(200); json({
+            res.status(200).json({
               tokenAcesso,
               nome: usuario.nome,
               id: usuario.id,

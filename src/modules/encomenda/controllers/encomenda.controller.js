@@ -7,8 +7,8 @@ class EncomendaController {
 
     static  async criarEncomenda(req, res) {
         try {
-            const { id, cliente, produto, quantidade, data_entrega, status } = req.body;
-            if (!id || !cliente || !produto || quantidade || data_entrega || !status) {
+            const { id, clienteID , produtoID, quantidade, data_entrega, status } = req.body;
+            if (!id || !clienteID || !produtoID || !quantidade || !data_entrega || !status) {
                 return res.status(400).json({ msg: "Todos os campos devem serem preenchidos!" });
             }
             await EncomendaModel.create({ id, cliente, produto, quantidade, data_entrega, status });

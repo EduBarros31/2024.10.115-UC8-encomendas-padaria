@@ -4,15 +4,15 @@ const bcrypt = require("bcryptjs");
 class UsuarioController {
   static async criarUsuario(req, res) {
     try {
-      const { nome, id, papel, email, senha } = req.body;
+      const { nome, usuarioID, papel, email, senha } = req.body || {};
       // Verifica se todos os campos foram preenchidos
-      if (!nome || !id || !papel || !email || !senha) {
+      if (!nome || !usuarioID|| !papel || !email || !senha) {
         return res.status(400).json({ msg: "Todos os campos devem serem preenchidos!" });
       }
 
         // Criptografa a senha
         const senhaCriptografada = await bcrypt.hash(senha, 6);
-        await Usuario.create({nome, id, papel, email, senha: senhaCriptografada});
+        await Usuario.create({nome, usuarioID, papel, email, senha: senhaCriptografada});
         res.status(200).json({ msg: "Usuário criado com sucesso!" });
 
     } catch (error) {
@@ -23,10 +23,10 @@ class UsuarioController {
 
  static async perfil(req,res) {  
     try {
-        const { id } = req.usuario;
+        const { usuarioID } = req.usuario;
         const usuario = await Usuario.findOne({
-          where: { id },
-          attributes: ["nome", "email", "id", "papel"]
+          where: { usuarioID },
+          attributes: ["nome", "email", "usuarioID", "papel"]
         })
         if(!usuario) {
             return res.status(401).json({msg: "Nao existe usuario cadastrado!"})
@@ -45,5 +45,3 @@ class UsuarioController {
 }
 
 module.exports = UsuarioController
-
-

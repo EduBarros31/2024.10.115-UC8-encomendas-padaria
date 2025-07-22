@@ -5,13 +5,15 @@ const { sequelize } = require('../../../config/configDB')
 
 const Usuario = sequelize.define(
     "Usuario",
-    {
+    {   
+       
+
         nome: {
             type: DataTypes.STRING,
             allowNull: false,
         },
 
-        id: {
+        usuarioID: {
             type: DataTypes.STRING,
             primaryKey: true,
             validate: {

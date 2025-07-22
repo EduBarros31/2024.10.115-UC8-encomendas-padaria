@@ -8,7 +8,7 @@ const Cliente = sequelize.define(
          type: DataTypes.INTEGER,
          primaryKey: true,
         
-     },
+        },
         nome: {
             type: DataTypes.STRING,
             allowNull: false,
