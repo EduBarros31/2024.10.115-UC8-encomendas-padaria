@@ -1,27 +1,21 @@
 const { DataTypes } = require('sequelize');
 const { sequelize } = require('../../../config/configDB')
 
-
-
 const Usuario = sequelize.define(
     "Usuario",
     {   
-       
+        id: {
+            type: DataTypes.UUID,
+            defaultValue: DataTypes.UUIDV4,
+            primaryKey: true,
+            },
 
         nome: {
             type: DataTypes.STRING,
             allowNull: false,
         },
 
-        usuarioID: {
-            type: DataTypes.STRING,
-            primaryKey: true,
-            validate: {
-                is: {
-                     args: /^[A-Za-z]\d{4}$/,
-                    msg: "Só é possível inserir 1 letra maiuscula e 4 digitos númericos"
-                }
-            },
+      
         papel: {
             type: DataTypes.ENUM('Atendente', 'gerente', 'admin'),
             allowNull: false,
@@ -52,7 +46,7 @@ const Usuario = sequelize.define(
         },
     },
 
-},
+
     {
         tableName: 'usuario',
         createdAt: 'criado_em',

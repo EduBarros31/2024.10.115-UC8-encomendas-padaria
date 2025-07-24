@@ -27,7 +27,7 @@ class AutenticacaoController {
                 return res.status(400).json({ msg: "É necessario informar email e senha para login" })
             }
             const usuario = await Usuario.findOne({
-                where: { email },
+                where: { email:email },
               });
               if (!usuario) {
                 return res.status(401).json({ msg: "Usuario não encontrado!" });
@@ -61,7 +61,7 @@ class AutenticacaoController {
           })
 
         } catch (error) {
-            res.status(500).json({ msg: 'Erro do servidor. Tente novamente mais tarde!' })
+            res.status(500).json({ msg: 'Erro do servidor. Tente novamente mais tarde!', erro: error.message })
         }
     }
    

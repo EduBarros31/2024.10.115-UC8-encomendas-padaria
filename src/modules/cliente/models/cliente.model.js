@@ -4,7 +4,7 @@ const { sequelize } = require("../../../config/configDB")
 const Cliente = sequelize.define(
     'cliente',
      {
-     id: {
+        id: {
          type: DataTypes.INTEGER,
          primaryKey: true,
         

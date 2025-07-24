@@ -4,10 +4,14 @@ const AutenticacaoMiddleware = require('../../../middleware/autenticacao.middlew
 
 const router = express.Router();
 
-// Rota para criar um usuário
-router.post('/criarUsuario', UsuarioController.criarUsuario);
 
-router.get('/usuarios/perfil', AutenticacaoMiddleware.autenticarToken, UsuarioController.perfil);
+// Rota para criar um usuário
+
+
+
+router.post('/cadastrar', UsuarioController.criarUsuario);
+
+router.get('/perfil', AutenticacaoMiddleware.autenticarToken, UsuarioController.perfil);
 
 
 

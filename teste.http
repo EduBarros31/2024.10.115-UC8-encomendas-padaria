@@ -1,0 +1,58 @@
+### Teste de criação de usuário (POST)
+POST http://localhost:3000/api/usuarios/cadastrar
+Content-Type: application/json
+
+{
+  "nome": "João",
+  "papel": "admin",
+  "email": "joao@email.com",
+  "senha": "Senha123!"
+}
+
+###
+
+### Teste de erro (faltando campo)
+POST http://localhost:3000/api/usuarios/criarUsuario
+Content-Type: application/json
+
+{
+  "nome": "Maria",
+  "papel": "admin",
+  "email": "maria@email.com"
+}
+
+###
+
+### Teste de corpo vazio
+POST http://localhost:3000/api/usuarios/criarUsuario
+Content-Type: application/json
+
+{}
+
+###
+
+### Teste de corpo ausente
+POST http://localhost:3000/api/usuarios/criarUsuario
+Content-Type: application/json
+###
+
+### Teste de login
+POST http://localhost:3000/api/login
+Content-Type: application/json
+
+{
+  "email":"joao@email.com",
+  "senha":"Senha123!"
+}
+
+### Teste cadastrar cliente
+POST http://localhost:3000/api/clientes/cadastrar
+Content-Type: application/json
+
+{
+  "nome":"Carlos Silva",
+  "email":"carlos@email.com",
+  "telefone":"123456789",
+   
+}
+###

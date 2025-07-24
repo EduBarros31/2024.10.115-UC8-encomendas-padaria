@@ -18,10 +18,10 @@ credentials: true
 
 app.use(express.json()); // Middleware para analisar JSON
 
-app.use('/api', authRoute);
+app.use('/api/', authRoute);
 app.use('/api/usuarios', usuarioRoute);
 app.use('/api/clientes', ClienteRoute);
-app.use('/api/encomendas', encomendaRoute);
+app.use('/api/', encomendaRoute);
 
 
 const PORTA = process.env.PORTA;
