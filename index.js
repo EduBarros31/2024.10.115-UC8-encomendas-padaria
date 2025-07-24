@@ -21,7 +21,7 @@ app.use(express.json()); // Middleware para analisar JSON
 app.use('/api/', authRoute);
 app.use('/api/usuarios', usuarioRoute);
 app.use('/api/clientes', ClienteRoute);
-app.use('/api/', encomendaRoute);
+app.use('/api/encomendas', encomendaRoute);
 
 
 const PORTA = process.env.PORTA;

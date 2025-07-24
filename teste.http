@@ -50,9 +50,26 @@ POST http://localhost:3000/api/clientes/cadastrar
 Content-Type: application/json
 
 {
-  "nome":"Carlos Silva",
-  "email":"carlos@email.com",
-  "telefone":"123456789",
-   
+  "nome": "Dede", 
+  "telefone": "8499999999", 
+  "email": "dede@gmail.com",
+  "senha": "Dd#123"
 }
 ###
+### Teste para listar clientes
+GET http://localhost:3000/api/clientes/listar
+Content-Type: application/json
+###
+
+## teste para criar encomenda
+POST http://localhost:3000/api/encomendas/cadastrar
+Content-Type: application/json
+
+{ 
+  "clienteID": 1,
+  "produtoID": 2,
+  "produto_nome": "Bolo de milho",
+  "quantidade": "5",
+  "data_entrega": "2023-10-15",
+  "status": "pendente"
+}

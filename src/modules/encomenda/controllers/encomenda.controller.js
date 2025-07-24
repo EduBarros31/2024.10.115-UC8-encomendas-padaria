@@ -6,17 +6,33 @@ const ClienteModel = require('../../../modules/cliente/models/cliente.model')
 class EncomendaController {
 
     static  async criarEncomenda(req, res) {
-        try {
-            const { id, clienteID , produtoID, quantidade, data_entrega, status } = req.body;
-            if (!id || !clienteID || !produtoID || !quantidade || !data_entrega || !status) {
-                return res.status(400).json({ msg: "Todos os campos devem serem preenchidos!" });
-            }
-            await EncomendaModel.create({ id, cliente, produto, quantidade, data_entrega, status });
-            res.status(200).json({ msg: "Encomenda criada com sucesso!" });
-
-        } catch (error) {
-            return res.status(500).json({ msg: "Erro ao criar encomenda", erro: error.message });
+       try {
+        const { clienteID, produtoID, produto_nome, quantidade, data_entrega, status } = req.body;
+        if (!clienteID || !produtoID || !produto_nome || !quantidade || !data_entrega || !status) {
+            return res.status(400).json({ msg: "Todos os campos devem serem preenchidos!" });
         }
+        const cliente = await ClienteModel.findByPk(clienteID); 
+        if (!cliente) {
+            return res.status(404).json({ msg: "Cliente não encontrado!" });
+        }
+        const produto = await UsuarioModel.findByPk(produtoID);
+        if (!produto) {
+            return res.status(404).json({ msg: "Produto não encontrado!" });
+        }
+        
+        const novaEncomenda = await EncomendaModel.create({
+            clienteID,
+            produtoID,
+            produto_nome,
+            quantidade,
+            data_entrega,
+            status
+        });
+        res.status(201).json({ msg: "Encomenda criada com sucesso!", encomenda: novaEncomenda });
+       } catch (error) {
+        res.status(500).json({ msg: 'Erro do servidor. Tente novamente mais tarde!', erro: error.message });
+        
+       }
     }
 
     static async listarEncomendas(req, res) {

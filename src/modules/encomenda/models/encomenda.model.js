@@ -4,24 +4,30 @@ const { sequelize } = require('../../../config/configDB');
 const Encomenda = sequelize.define(
     'Encomenda', 
     {
-        usuarioID: {
-            type: DataTypes.STRING,
+       id: {
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+            autoIncrement: true,
             allowNull: false,
             validate: {
-                is: {
-                    args: /^[A-Za-z]\d{4}$/,
-                    msg: 'O ID do usuário deve conter 1 letra maiúscula seguida de 4 dígitos numéricos.',
-                },
+                isInt: { msg: 'O ID da encomenda deve ser um número inteiro.' },
             },
         },
 
         produto_nome: {
             type: DataTypes.STRING,
             allowNull: false,
+            validate: {
+                notEmpty: { msg: 'O nome do produto não pode estar vazio.' },
+                len: {
+                    args: [3, 20],
+                    msg: 'O nome do produto deve ter entre 3 e 20 caracteres.',
+                },
+            },
         },
         produtoID: {
             type: DataTypes.INTEGER,
-            primaryKey: true,
+            allowNull: false,
             validate: {
                 isInt: { msg: 'O ID do produto deve ser um número inteiro.' },
             },
