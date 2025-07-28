@@ -73,3 +73,18 @@ Content-Type: application/json
   "data_entrega": "2023-10-15",
   "status": "pendente"
 }
+
+### Atualizar cliente por id
+PUT http://localhost:3000/api/clientes/atualizar/1
+Content-Type: application/json
+
+{
+  "nome": "Dede", 
+  "telefone": "8499999999", 
+  "email": "dededemais@gmail.com"  
+}
+
+### Excluir cliente por id
+DELETE http://localhost:3000/api/clientes/excluir/1
+Content-Type: application/json 
+

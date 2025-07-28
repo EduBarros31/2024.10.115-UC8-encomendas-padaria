@@ -23,7 +23,6 @@ app.use('/api/usuarios', usuarioRoute);
 app.use('/api/clientes', ClienteRoute);
 app.use('/api/encomendas', encomendaRoute);
 
-
 const PORTA = process.env.PORTA;
 app.listen(PORTA, async () => {
     try {
