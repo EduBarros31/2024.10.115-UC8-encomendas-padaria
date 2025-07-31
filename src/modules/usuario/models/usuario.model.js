@@ -8,7 +8,9 @@ const Usuario = sequelize.define(
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
             primaryKey: true,
+            onUpdate:"CASCADE"
             },
+
 
         nome: {
             type: DataTypes.STRING,
